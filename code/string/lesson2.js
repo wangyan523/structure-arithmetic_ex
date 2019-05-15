@@ -16,5 +16,4 @@ export default str => {
       r.push(sub)
     }
   }
-  return r
 }
