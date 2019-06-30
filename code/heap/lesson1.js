@@ -1,6 +1,15 @@
 class Heap {
-  constructor (data) {
-    this.data = data
+  constructor (str) {
+    let map = new Map()
+    str.split('').forEach(item => {
+      if (map.has(item)) {
+        map.set(item, map.get(item) + 1)
+      } else {
+        map.set(item, 1)
+      }
+    })
+    this.map = map
+    this.data = Array.from(map.values())
   }
   sort () {
     let iArr = this.data
@@ -17,6 +26,21 @@ class Heap {
       }
       return iArr
     }
+  }
+  toString () {
+    let arr = this.sort()
+    let str = []
+    while (arr.length) {
+      let top = arr.pop()
+      for (let [k, v] of this.map) {
+        if (v === top) {
+          str.push(k.repeat(v))
+          this.map.delete(k)
+          break
+        }
+      }
+    }
+    return str.join('')
   }
   static swap (arr, a, b) {
     if (a === b) {
